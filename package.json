@@ -3,7 +3,9 @@
     "start": "nodemon index.js"
   },
   "dependencies": {
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "openai": "^3.1.0",
+    "axios":"1.7.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

@@ -1,3 +1,8 @@
+/**
+ * @file index.js
+ * @description Express server for OpenAI API
+ */
+
 const express = require('express');
 const axios = require('axios');
 
