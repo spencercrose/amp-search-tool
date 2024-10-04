@@ -141,7 +141,7 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: ${{ env.APP_NAME }}
+        image: ${{ env.APP_NAME }} 
         tags: ${{ env.IMAGE_TAGS }} 
 
         # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
@@ -187,6 +187,7 @@ jobs:
         image: ${{ steps.push-image.outputs.registry-path }}
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         port: ${{ env.APP_PORT }}
+        image_pull_secret_name: ${{ secrets.IMAGE_PULL_SECRET_NAME }}
 
     - name: Print application URL
       env:
