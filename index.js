@@ -1,11 +1,46 @@
-const express = require('express')
-const app = express()
-const port = 4000
+const express = require('express');
+const axios = require('axios');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+const port = 4000;
+
+// OpenAI API settings
+const openaiApiKey = process.env.OPENAI_API_KEY;
+const openaiApiUrl = 'https://api.openai.com/v1/completions';
+
+// Middleware to parse JSON payload
+app.use(express.json());
+
+// API endpoint to send text to OpenAI
+app.post('/openai', async (req, res) => {
+  const { prompt } = req.body;
+
+  // Validate text payload
+  if (!prompt) {
+    return res.status(400).send({ error: 'Prompt is required' });
+  }
+
+  try {
+    // Send request to OpenAI API
+    const response = await axios.post(openaiApiUrl, {
+      prompt: prompt,
+      max_tokens: 500,
+      temperature: 0.5,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${openaiApiKey}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Return OpenAI response
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Failed to connect to external API' });
+  }
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server listening on port ${port}`);
+});
