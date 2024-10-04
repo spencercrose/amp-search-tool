@@ -187,7 +187,7 @@ jobs:
         image: ${{ steps.push-image.outputs.registry-path }}
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         port: ${{ env.APP_PORT }}
-        image_pull_secret_name: ${{ secrets.IMAGE_PULL_SECRET_NAME }}
+        image_pull_secret_name: ${{ env.IMAGE_PULL_SECRET_NAME }}
 
     - name: Print application URL
       env:
