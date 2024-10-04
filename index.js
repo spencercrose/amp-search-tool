@@ -9,10 +9,6 @@ const axios = require('axios');
 const app = express();
 const port = 4000;
 
-// OpenAI API settings
-const openaiApiKey = process.env.OPENAI_API_KEY;
-const openaiApiUrl = 'https://api.openai.com/v1/completions';
-
 // Middleware to parse JSON payload
 app.use(express.json());
 
@@ -26,17 +22,18 @@ app.post('/openai', async (req, res) => {
   }
 
   try {
-    // Send request to OpenAI API
-    const response = await axios.post(openaiApiUrl, {
-      prompt: prompt,
-      max_tokens: 500,
-      temperature: 0.5,
-    }, {
-      headers: {
-        'Authorization': `Bearer ${openaiApiKey}`,
-        'Content-Type': 'application/json',
-      },
+
+    // OpenAI API settings
+    const client = new OpenAI({
+      apiKey: process.env['OPENAI_API_KEY'],
     });
+
+    const response = await client.chat.completions.create({
+      messages: [{ role: 'user', content: prompt }],
+      model: 'gpt-3.5-turbo',
+    });
+
+    console.log(response)
 
     // Return OpenAI response
     res.send(response.data);
