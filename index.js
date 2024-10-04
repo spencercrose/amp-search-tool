@@ -4,7 +4,7 @@
  */
 
 const express = require('express');
-const axios = require('axios');
+const OpenAI = require('openai');
 
 const app = express();
 const port = 4000;
