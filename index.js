@@ -1,10 +1,11 @@
 /**
  * @file index.js
- * @description Express server for OpenAI API
+ * @description Express server for AWS Bedrock API
  */
 
-const express = require('express');
-const OpenAI = require('openai');
+import express from 'express';
+import crypto from 'crypto';
+import {invokeBedrockAgent} from './agent.js';
 
 const app = express();
 const port = 4000;
@@ -13,7 +14,7 @@ const port = 4000;
 app.use(express.json());
 
 // API endpoint to send text to OpenAI
-app.post('/openai', async (req, res) => {
+app.post('/query', async (req, res) => {
   const { prompt } = req.body;
 
   // Validate text payload
@@ -22,21 +23,16 @@ app.post('/openai', async (req, res) => {
   }
 
   try {
-
-    // OpenAI API settings
-    const client = new OpenAI({
-      apiKey: process.env['OPENAI_API_KEY'],
-    });
-
-    const response = await client.chat.completions.create({
-      messages: [{ role: 'user', content: prompt }],
-      model: 'gpt-3.5-turbo',
-    });
+    // generate a unique session ID
+    const uuid = crypto.randomBytes(16).toString('hex');
+    // Call the AWS Bedrock API
+    const response = await invokeBedrockAgent(prompt, uuid);
 
     console.log(response)
 
-    // Return OpenAI response
-    res.send(response.data);
+    // Return the response
+    res.send(response.completion);
+
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: 'Failed to connect to external API' });

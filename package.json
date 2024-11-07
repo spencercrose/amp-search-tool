@@ -1,10 +1,11 @@
 {
+  "type":"module",
   "scripts": {
     "start": "nodemon index.js"
   },
   "dependencies": {
     "express": "^4.21.0",
-    "openai": "^4.67.1"
+    "@aws-sdk/client-bedrock-agent-runtime":"^3.682.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
