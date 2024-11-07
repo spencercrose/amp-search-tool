@@ -5,7 +5,9 @@
   },
   "dependencies": {
     "express": "^4.21.0",
-    "@aws-sdk/client-bedrock-agent-runtime":"^3.682.0"
+    "dotenv": "^16.4.5",
+    "@aws-sdk/client-bedrock-agent-runtime":"^3.682.0",
+    "@aws-sdk/credential-providers":"^3.682.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

@@ -5,8 +5,10 @@ import {
     BedrockAgentRuntimeClient,
     InvokeAgentCommand,
   } from "@aws-sdk/client-bedrock-agent-runtime";
-  
-  /**
+import 'dotenv/config';
+import { fromEnv } from "@aws-sdk/credential-providers";
+
+/**
    * @typedef {Object} ResponseBody
    * @property {string} completion
    */
@@ -20,7 +22,10 @@ import {
    * @param {string} sessionId - An arbitrary identifier for the session.
    */
   export const invokeBedrockAgent = async (prompt, sessionId) => {
-    const client = new BedrockAgentRuntimeClient({ region: "ca-central-1" });
+    const client = new BedrockAgentRuntimeClient({ 
+      region: "ca-central-1",
+      credentials: fromEnv(),
+    });
     // const client = new BedrockAgentRuntimeClient({
     //   region: "ca-central-1",
     //   credentials: {

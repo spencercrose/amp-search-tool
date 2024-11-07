@@ -6,6 +6,7 @@
 import express from 'express';
 import crypto from 'crypto';
 import {invokeBedrockAgent} from './agent.js';
+import 'dotenv/config';
 
 const app = express();
 const port = 4000;
@@ -27,8 +28,6 @@ app.post('/query', async (req, res) => {
     const uuid = crypto.randomBytes(16).toString('hex');
     // Call the AWS Bedrock API
     const response = await invokeBedrockAgent(prompt, uuid);
-
-    console.log(response)
 
     // Return the response
     res.send(response.completion);
