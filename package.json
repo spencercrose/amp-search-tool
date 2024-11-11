@@ -1,13 +1,18 @@
 {
   "type":"module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "lint": "eslint ."
   },
   "dependencies": {
     "express": "^4.21.0",
     "dotenv": "^16.4.5",
+    "cors":"^2.8.5",
+    "morgan":"^1.10.0",
+    "helmet":"^8.0.0",
     "@aws-sdk/client-bedrock-agent-runtime":"^3.682.0",
-    "@aws-sdk/credential-providers":"^3.682.0"
+    "@aws-sdk/credential-providers":"^3.682.0",
+    "eslint":"9.14.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

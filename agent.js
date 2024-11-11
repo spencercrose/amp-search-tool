@@ -8,6 +8,7 @@ import {
 import 'dotenv/config';
 import { fromEnv } from "@aws-sdk/credential-providers";
 
+
 /**
    * @typedef {Object} ResponseBody
    * @property {string} completion
@@ -54,7 +55,6 @@ import { fromEnv } from "@aws-sdk/credential-providers";
   
       for await (const chunkEvent of response.completion) {
         const chunk = chunkEvent.chunk;
-        console.log(chunk);
         const decodedResponse = new TextDecoder("utf-8").decode(chunk.bytes);
         completion += decodedResponse;
       }
@@ -69,5 +69,4 @@ import { fromEnv } from "@aws-sdk/credential-providers";
   import { fileURLToPath } from "node:url";
   if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const result = await invokeBedrockAgent("I need help.", "123");
-    console.log(result);
   }
