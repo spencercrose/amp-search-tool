@@ -9,7 +9,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { invokeBedrockAgent } from './agent.js';
-import { sanitize } from './utils.js';
+import { invokeBedrockRetrieval } from './retrieval.js';
+import { sanitize, sanitizeSessionID } from './utils.js';
 import 'dotenv/config';
 
 const app = express();
@@ -32,8 +33,8 @@ app.use(morgan(loggingFormat));
 // Middleware to parse JSON payload
 app.use(express.json());
 
-// API endpoint to send text to OpenAI
-app.post('/query', async (req, res) => {
+// API endpoint for AWS Bedrock agent
+app.post('/agent', async (req, res) => {
   const { message } = req.body;
   // DEBUG: 
   console.log(message);
@@ -57,6 +58,36 @@ app.post('/query', async (req, res) => {
     console.error(error);
     res.status(500).send({ error: 'Failed to connect to external API' });
   }
+});
+
+// API endpoint for AWS Bedrock retrieval and generation
+app.post('/retrieve', async (req, res) => {
+  const { message, session_id } = req.body;
+  // DEBUG: 
+  console.log('Prompt:', message);
+
+  // Validate text payload
+  if (!message) {
+    return res.status(400).send({ error: 'Prompt is required' });
+  }
+
+  try {
+    // Call the AWS Bedrock API
+    const sanitizedPrompt = sanitize(message);
+    const sanitizedSessionId = sanitizeSessionID(session_id);
+    const response = await invokeBedrockRetrieval(sanitizedPrompt, sanitizedSessionId);
+
+    // Return the response
+    res.json(response);
+
+  } catch (error) {
+    res.status(error?.code || 500).json(error?.message);
+  }
+});
+
+// API endpoint for readiness check
+app.get('/health', async (_, res) => {
+  res.status(200).send({ status: 'OK' });
 });
 
 // Global error handler

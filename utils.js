@@ -27,3 +27,15 @@
   
     return sanitizedPrompt;
   };
+
+/**
+ * Sanitizes a session ID by removing any characters that are not
+ * alphanumeric, dot, underscore, colon, or hyphen.
+ *
+ * @param {string} input - The session ID to sanitize.
+ * @returns {string} The sanitized session ID.
+ */
+
+  export function sanitizeSessionID(input) {
+    return input.replace(/[^0-9a-zA-Z._:-]/g, '');
+  }

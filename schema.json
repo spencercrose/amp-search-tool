@@ -1,0 +1,80 @@
+{
+    "input": { 
+       "text": "string"
+    },
+    "retrieveAndGenerateConfiguration": { 
+       "externalSourcesConfiguration": { 
+          "generationConfiguration": { 
+             "additionalModelRequestFields": { 
+                "string" : "JSON" 
+             },
+             "guardrailConfiguration": { 
+                "guardrailId": "string",
+                "guardrailVersion": "string"
+             },
+             "inferenceConfig": { 
+                "textInferenceConfig": { 
+                   "maxTokens": "number",
+                   "stopSequences": [ "string" ],
+                   "temperature": "number",
+                   "topP": "number"
+                }
+             },
+             "promptTemplate": { 
+                "textPromptTemplate": "string"
+             }
+          },
+          "modelArn": "string",
+          "sources": [ 
+             { 
+                "byteContent": { 
+                   "contentType": "string",
+                   "data": "blob",
+                   "identifier": "string"
+                },
+                "s3Location": { 
+                   "uri": "string"
+                },
+                "sourceType": "string"
+             }
+          ]
+       },
+       "knowledgeBaseConfiguration": { 
+          "generationConfiguration": { 
+             "additionalModelRequestFields": { 
+                "string" : "JSON" 
+             },
+             "guardrailConfiguration": { 
+                "guardrailId": "string",
+                "guardrailVersion": "string"
+             },
+             "inferenceConfig": { 
+               "textInferenceConfig": { 
+                  "maxTokens": "number",
+                  "stopSequences": [ "string" ],
+                  "temperature": "number",
+                  "topP": "number"
+               }
+            },
+            "promptTemplate": { 
+               "textPromptTemplate": "string"
+            },
+            "queryTransformationConfiguration": { 
+               "type": "string"
+            }
+         },
+         "retrievalConfiguration": { 
+            "vectorSearchConfiguration": { 
+               "filter": "{ ... }",
+               "numberOfResults": "number",
+               "overrideSearchType": "string"
+            }
+         }
+      },
+      "type": "string"
+   },
+   "sessionConfiguration": { 
+      "kmsKeyArn": "string"
+   },
+   "sessionId": "string"
+}

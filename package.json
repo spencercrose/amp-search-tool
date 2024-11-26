@@ -12,6 +12,8 @@
     "helmet":"^8.0.0",
     "@aws-sdk/client-bedrock-agent-runtime":"^3.682.0",
     "@aws-sdk/credential-providers":"^3.682.0",
+    "@aws-sdk/client-s3": "3.699.0",
+    "@aws-sdk/s3-request-presigner": "3.699.0",
     "eslint":"9.14.0"
   },
   "devDependencies": {
