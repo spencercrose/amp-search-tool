@@ -88,7 +88,7 @@ const generationConfiguration = {
   // },
   inferenceConfig: {
     textInferenceConfig: {
-      temperature: 0,
+      temperature: 0.5,
       topP: 1.0,
       topK: 250,
       maxTokens: 2048,
