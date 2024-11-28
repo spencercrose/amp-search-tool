@@ -24,7 +24,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Set up Helmet for security
-app.use(helmet());
+// app.use(helmet());
 
 // Set up Morgan for logging
 const loggingFormat = ':method :url :status :res[content-length] - :response-time ms';
