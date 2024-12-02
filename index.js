@@ -18,13 +18,17 @@ const port = 4000;
 
 // Allow CORS requests from the specified CLIENT_HOST
 const corsOptions = {
-  origin: process.env.CLIENT_HOST,
+  origin: [process.env.CLIENT_HOST],
 };
 
 app.use(cors(corsOptions));
 
 // Set up Helmet for security
-// app.use(helmet());
+app.use(helmet());
+
+// include before other routes
+app.options('*', cors(corsOptions)) 
+
 
 // Set up Morgan for logging
 const loggingFormat = ':method :url :status :res[content-length] - :response-time ms';
@@ -103,4 +107,5 @@ app.use((req, res, next) => {
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
+  console.log(`Client host at ${process.env.CLIENT_PORT}`);
 });
