@@ -44,7 +44,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import 'dotenv/config';
 import { fromEnv } from "@aws-sdk/credential-providers";
 
-const NUMBER_OF_RESULTS = 5;
+const NUMBER_OF_RESULTS = 90;
 const OVERRIDE_SEARCH_TYPE = "HYBRID";
 const MODEL_TYPE="KNOWLEDGE_BASE";
 
@@ -88,10 +88,7 @@ const generationConfiguration = {
   // },
   inferenceConfig: {
     textInferenceConfig: {
-      temperature: 0.5,
-      topP: 1.0,
-      topK: 250,
-      maxTokens: 2048,
+      maxTokens: 3000,
       // stopSequences: ["\n\n"]
     }
   }
@@ -101,15 +98,15 @@ const orchestrationConfiguration = {
   // promptTemplate: {
   //   textPromptTemplate: "Please generate a response based on the conversation history: $conversation_history$ and output format instructions: $output_format_instructions$",
   // },
-  inferenceConfig: {
-    textInferenceConfig: {
-      temperature: 0,
-      topP: 1.0,
-      topK: 250,
-      maxTokens: 2048,
-      // stopSequences: ["\n\n"]
-    }
-  },
+  // inferenceConfig: {
+  //   textInferenceConfig: {
+  //     temperature: 0,
+  //     topP: 1.0,
+  //     topK: 250,
+  //     maxTokens: 2048,
+  //     // stopSequences: ["\n\n"]
+  //   }
+  // },
   // queryTransformationConfiguration: {
   //   type: "QUERY_DECOMPOSITION"
   // }
@@ -188,7 +185,7 @@ const orchestrationConfiguration = {
           retrievalConfiguration: { // KnowledgeBaseRetrievalConfiguration
             vectorSearchConfiguration: { // KnowledgeBaseVectorSearchConfiguration
               numberOfResults: NUMBER_OF_RESULTS,
-              overrideSearchType: OVERRIDE_SEARCH_TYPE,
+              // overrideSearchType: OVERRIDE_SEARCH_TYPE,
             //   filter: { // RetrievalFilter Union: only one key present
             //     equals: { // FilterAttribute
             //       key: "STRING_VALUE", // required
